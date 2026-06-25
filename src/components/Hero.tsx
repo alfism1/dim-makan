@@ -58,6 +58,9 @@ function SteamCloud({ mouseRef, reducedMotion }: SteamCloudProps) {
       'position',
       new THREE.BufferAttribute(positions, 3),
     )
+    return () => {
+      geoRef.current?.dispose()
+    }
   }, [positions])
 
   useFrame((state, delta) => {

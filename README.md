@@ -1,32 +1,42 @@
-# React + TypeScript + Vite
+# Dim Makan — Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Dim Makan is a single-page marketing site for a handmade dimsum home business based in Jakarta. The page showcases the menu, catering packages, pre-order/frozen options, and ordering channels (WhatsApp, GoFood, GrabFood), with a fully animated experience built on GSAP ScrollTrigger, Framer Motion, and a Three.js steam-particle canvas in the hero.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **TypeScript 6** (strict)
+- **Vite 8** + `@vitejs/plugin-react`
+- **Tailwind CSS v4** (via `@tailwindcss/vite`)
+- **GSAP 3** (ScrollTrigger, ScrollToPlugin, TextPlugin, Flip)
+- **Framer Motion 12**
+- **React Three Fiber 9** + **Three.js 0.184**
+- **oxlint** for linting
 
-## React Compiler
+## Commands
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install          # Install dependencies
+npm run dev          # Start dev server (HMR)
+npm run build        # Type-check + production build → dist/
+npm run preview      # Serve the dist/ build locally
+npm run lint         # Run oxlint
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Content Placeholders
+
+The following values are stubbed and must be replaced before going live:
+
+| Location | File | What to fill in |
+|---|---|---|
+| WhatsApp CTA (Hero) | `src/components/Hero.tsx:281` | `https://wa.me/<phone>` — add the business WhatsApp number |
+| WhatsApp CTA (HowToOrder) | `src/components/HowToOrder.tsx:107` | `https://wa.me/<phone>` — same number |
+| WhatsApp CTA (Catering, ×3 packages) | `src/components/Catering.tsx:257` | `https://wa.me/<phone>` |
+| WhatsApp CTA (PreorderFrozen, ×2) | `src/components/PreorderFrozen.tsx:267,333` | `https://wa.me/<phone>` |
+| WhatsApp CTA (Footer) | `src/components/Footer.tsx:81` | `https://wa.me/<phone>` |
+| Pickup address | `src/components/HowToOrder.tsx:141` | Replace `Jl. [PLACEHOLDER: alamat]` with real street address |
+| Instagram profile URL | `src/components/Footer.tsx:167` | Replace `https://instagram.com/` with `https://instagram.com/dimmakan` (or actual handle) |
+| Instagram handle text | `src/components/Footer.tsx:177` | Confirm `@dimmakan` matches the actual Instagram handle |
+| GoFood store URL | Multiple files | Replace `https://gofood.co.id/` with the actual store deep-link |
+| GrabFood store URL | Multiple files | Replace `https://grabfood.com/` with the actual store deep-link |
+| Founder signature name | `src/components/TentangKami.tsx:161` | Confirm "Ibu Sri Wahyuni" is correct |
+| Copyright year | `src/components/Footer.tsx:182` | Update `© 2025` each year, or make it dynamic |

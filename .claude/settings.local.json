@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(node -e \"const r = require\\('./node_modules/@react-three/fiber/package.json'\\); console.log\\(r.version\\)\")",
+      "Bash(node -e \"const r = require\\('./node_modules/framer-motion/package.json'\\); console.log\\(r.version\\)\")",
+      "Bash(node -e \"const r = require\\('./node_modules/gsap/package.json'\\); console.log\\(r.version\\)\")",
+      "Bash(node -e \"const r = require\\('./node_modules/@react-three/drei/package.json'\\); console.log\\(r.version\\)\")"
+    ]
+  }
+}
