@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+/* Custom theme — Tailwind v4 pakai @theme, bukan tailwind.config */
+@theme {
+  --color-red: #C0392B;
+  --color-red-dark: #8B2319;
+  --color-gold: #D4A847;
+  --color-cream: #FAF7F2;
+  --color-ink: #1A1A1A;
+  --color-muted: #E8E0D5;
+
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FAF7F2;
+    color: #1A1A1A;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FAF7F2;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #C0392B;
+    border-radius: 3px;
+  }
+}
