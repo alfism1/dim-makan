@@ -10,13 +10,22 @@ const NAV_LINKS = [
   { label: 'Cara Order', href: '#cara-order' },
 ] as const
 
+const NAVBAR_H = 64 // px — matches h-16
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  // One-way latch: once true it never goes back to false.
+  // This keeps the navbar visible even when the user scrolls back to the top.
+  const [visible, setVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const reducedMotion = useReducedMotion()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 60)
+      if (y > 60) setVisible(true)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -36,7 +45,9 @@ export default function Navbar() {
     }
     const target = document.querySelector(href)
     if (target) {
-      target.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' })
+      // Offset by navbar height so the section heading isn't hidden behind the fixed bar
+      const top = target.getBoundingClientRect().top + window.scrollY - NAVBAR_H
+      window.scrollTo({ top: Math.max(0, top), behavior: reducedMotion ? 'instant' : 'smooth' })
     }
   }
 
@@ -47,13 +58,25 @@ export default function Navbar() {
   }
 
   return (
-    <nav
+    <motion.nav
+      // fixed: floats above content so the hero fills the full viewport on load
       className={[
-        'sticky top-0 z-50 transition-[border-color,background-color] duration-300',
+        'fixed top-0 left-0 right-0 z-50',
+        'transition-[border-color,background-color] duration-300',
         scrolled
           ? 'bg-cream/90 backdrop-blur-md border-b border-muted'
           : 'bg-cream',
+        visible ? '' : 'pointer-events-none',
       ].join(' ')}
+      initial={reducedMotion ? { opacity: 0 } : { y: -72, opacity: 0 }}
+      animate={
+        visible
+          ? { y: 0, opacity: 1 }
+          : reducedMotion
+          ? { opacity: 0 }
+          : { y: -72, opacity: 0 }
+      }
+      transition={{ duration: reducedMotion ? 0.15 : 0.42, ease: [0.4, 0, 0.2, 1] }}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
@@ -157,6 +180,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   )
 }
